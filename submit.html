@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dual Heat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontsource-dseg7-classic/5.3.0/index.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #000;
+      font-family: serif;
+      overflow-x: hidden;
+    }
+
+    .page {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .split {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      z-index: 0;
+    }
+
+    .left {
+      background: #000;
+    }
+
+    .right {
+      background: #fff;
+    }
+
+    /* TITLE: duplicated and clipped so it inverts cleanly */
+    .title-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 28px 20px 0;
+      text-align: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .title-layer.white {
+      color: #fff;
+      clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+    }
+
+    .title-layer.black {
+      color: #000;
+      clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+    }
+
+    .the {
+      margin: 0 0 6px;
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.42em;
+      text-indent: 0.42em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 6vw, 68px);
+      font-weight: normal;
+      text-transform: uppercase;
+      line-height: 0.95;
+    }
+
+    h1 .dual {
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      letter-spacing: 0.01em;
+      position: relative;
+      left: -5px;
+    }
+
+    h1 .heat {
+      font-family: "DSEG7 Classic", monospace;
+      font-weight: 700;
+      font-size: 0.88em;
+      letter-spacing: 0.04em;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-size: 10px;
+      letter-spacing: 0.50em;
+      text-indent: 0.50em;
+      text-transform: uppercase;
+    }
+
+    /* SUBMISSION CONTENT */
+    .content {
+      position: relative;
+      z-index: 3;
+      min-height: 100vh;
+      padding: 190px 20px 36px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .columns {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .side-heading {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-size: clamp(11px, 1.8vw, 15px);
+      letter-spacing: 0.30em;
+      text-indent: 0.30em;
+      text-transform: uppercase;
+    }
+
+    .mind-side .side-heading,
+    .mind-side .email {
+      color: #fff;
+    }
+
+    .body-side .side-heading,
+    .body-side .email {
+      color: #000;
+    }
+
+    .email {
+      display: inline-block;
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-size: clamp(9px, 1.4vw, 12px);
+      letter-spacing: 0.22em;
+      text-indent: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 10px 16px;
+      border: 2px solid currentColor;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    /* MIND: white on black, inverts to black on white */
+    .mind-side .email {
+      border-color: #fff;
+    }
+
+    .mind-side .email:hover,
+    .mind-side .email:focus-visible {
+      background: #fff;
+      color: #000;
+    }
+
+    /* BODY: black on white, inverts to white on black */
+    .body-side .email {
+      border-color: #000;
+    }
+
+    .body-side .email:hover,
+    .body-side .email:focus-visible {
+      background: #000;
+      color: #fff;
+    }
+
+    @media (max-width: 700px) {
+      .split {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+      }
+
+      .left {
+        grid-row: 1;
+      }
+
+      .right {
+        grid-row: 2;
+      }
+
+      .title-layer.white {
+        clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+      }
+
+      .title-layer.black {
+        clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+      }
+
+      .content {
+        padding-top: 150px;
+      }
+
+      .columns {
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <div class="split">
+      <div class="left"></div>
+      <div class="right"></div>
+    </div>
+
+    <!-- White title: visible over black left half -->
+    <div class="title-layer white" aria-hidden="true">
+      <p class="the">The</p>
+
+      <h1>
+        <span class="dual">Dual</span><br>
+        <span class="heat">Heat</span>
+      </h1>
+
+      <p class="subtitle">Magazine of Mind and Body</p>
+    </div>
+
+    <!-- Black title: visible over white right half -->
+    <div class="title-layer black">
+      <p class="the">The</p>
+
+      <h1>
+        <span class="dual">Dual</span><br>
+        <span class="heat">Heat</span>
+      </h1>
+
+      <p class="subtitle">Magazine of Mind and Body</p>
+    </div>
+
+    <main class="content">
+      <div class="columns">
+
+        <section class="side mind-side">
+          <h2 class="side-heading">Submit to Mind</h2>
+          <a class="email" href="mailto:thedualheat@gmail.com?subject=Submission%20to%20MIND">
+            thedualheat@gmail.com
+          </a>
+        </section>
+
+        <section class="side body-side">
+          <h2 class="side-heading">Submit to Body</h2>
+          <a class="email" href="mailto:thedualheat@gmail.com?subject=Submission%20to%20BODY">
+            thedualheat@gmail.com
+          </a>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+</body>
+</html>
