@@ -66,11 +66,17 @@
       color: #fff;
     }
 
-    .email {
+    .buttons {
+      display: flex;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .button {
       display: inline-block;
-      margin: 18px 0 0;
       padding: 12px 22px;
       border: 2px solid #fff;
+      background: transparent;
       font-family: "Playfair Display", serif;
       font-weight: 900;
       font-size: 13px;
@@ -79,10 +85,11 @@
       text-transform: uppercase;
       color: #fff;
       text-decoration: none;
+      cursor: pointer;
     }
 
-    .email:hover,
-    .email:focus-visible {
+    .button:hover,
+    .button:focus-visible {
       background: #fff;
       color: #000;
     }
@@ -98,9 +105,12 @@
   </h1>
 
   <p>Magazine of Mind and Body</p>
-<p></p>
+  <p></p>
 
-  <a class="email" href="mailto:thedualheat@gmail.com">thedualheat@gmail.com</a>
+<div class="buttons">
+  <a class="button" href="about.html">About</a>
+  <a class="button" href="submit.html">Submit</a>
+</div>
 
 </body>
 </html>
